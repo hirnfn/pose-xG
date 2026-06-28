@@ -1,200 +1,109 @@
-# \# Pose-xG
+# Pose-xG
 
-# 
+**Pose-xG** is a Python-based framework for constructing a **biomechanically informed, skill-adjusted expected goals (xG) model for football (soccer)**. The approach incorporates pose-estimation–derived features from a player’s shooting motion to enhance traditional xG modeling.
 
-# \*\*Pose-xG\*\* is a Python framework for constructing a \*\*biomechanically-informed, skill-adjusted expected goals (xG) model for football (soccer)\*\* based on player shooting motion extracted via pose estimation. The repository includes data preparation, pose feature extraction, model training, evaluation and analysis scripts that were used in the associated research project.
+This repository contains scripts and notebooks used for data preparation, pose-based feature extraction, model training, and evaluation as part of the associated research project.
 
-# 
+---
 
-# \---
+## 📘 Overview
 
-# 
+Traditional xG models primarily rely on shot location and contextual variables. Pose-xG extends this paradigm by integrating biomechanical features extracted from player shooting motion, enabling a more direct representation of individual finishing skill.
 
-# \## 📘 Overview
+The repository includes:
+- Camera calibration and 3D triangulation utilities
+- Pose-based feature extraction
+- Training and evaluation of baseline and biomechanical xG models
+- Example training and test datasets
 
-# 
+---
 
-# This project demonstrates how pose-based biomechanical features can be incorporated into expected-goals modeling to better account for player skill and shooting motion mechanics. Features are extracted from pose sequences and used to train both baseline and biomechanically-enhanced xG models.
-
-# 
-
-# \### Repository Structure
-
+## 📁 Repository Structure
+pose-xG/
 ├── data/
-
-│ ├── Trainingsset\_Base.xlsx
-
-│ ├── Trainingsset\_Bio.xlsx
-
-│ ├── Testset\_Base.xlsx
-
-│ └── Testset\_Bio.xlsx
-
+│ ├── Trainingsset_Base.xlsx
+│ ├── Trainingsset_Bio.xlsx
+│ ├── Testset_Base.xlsx
+│ └── Testset_Bio.xlsx
 ├── scripts/
-
-│ ├── 04\_Camera\_Calibration\_and\_Triangulation.py
-
-│ ├── 06\_Triangulation.py
-
-│ ├── 07\_Extract\_Features\_from\_Pose.py
-
-│ ├── 08\_Base\_Model.ipynb
-
-│ └── 09\_Bio\_Model.ipynb
-
+│ ├── 04_Camera_Calibration_and_Triangulation.py
+│ ├── 06_Triangulation.py
+│ ├── 07_Extract_Features_from_Pose.py
+│ ├── 08_Base_Model.ipynb
+│ └── 09_Bio_Model.ipynb
 └── README.md
+└── requirements.txt
 
-└─── requirements.txt
 
+- **data/** – Example training and test datasets for baseline and biomechanical xG models  
+- **scripts/** – Python scripts and Jupyter notebooks for calibration, triangulation, feature extraction, and modeling
 
+---
 
+## 🚀 Getting Started
 
+### Requirements
 
-\- \*\*data/\*\* – Excel files containing training and test datasets for both the base and biomechanical models.  
+The code is written in **Python 3**. Typical dependencies include:
 
-\- \*\*scripts/\*\* – Python scripts and notebooks for camera calibration, 3D triangulation, feature extraction, and model training/analysis.
+- `numpy`
+- `pandas`
+- `scikit-learn`
+- `matplotlib`
+- pose-estimation frameworks (e.g., MediaPipe or OpenPose, depending on the preprocessing pipeline)
 
+It is recommended to create a virtual environment and install dependencies accordingly.
 
+---
 
-\---
+## 🧠 Workflow
 
+1. **Camera Calibration & Triangulation**  
+   Use the calibration and triangulation scripts to reconstruct 3D joint positions from multi-view pose data.
 
+2. **Feature Extraction**  
+   Run `07_Extract_Features_from_Pose.py` to compute pose-derived biomechanical features (e.g., joint angles, velocities, and motion descriptors) for each shot.
 
-\## 🚀 Getting Started
+3. **Model Training**  
+   - `08_Base_Model.ipynb` trains a standard expected-goals (xG) model based on shot and contextual features.  
+   - `09_Bio_Model.ipynb` trains the biomechanically enhanced xG model incorporating pose-based features.
 
+4. **Evaluation & Analysis**  
+   Evaluate and compare the base and biomechanical models on the provided test sets, compute performance metrics, and analyze the influence of biomechanical features on model predictions.
 
+---
 
-\### Dependencies
+## 📊 Data
 
+The example datasets included in this repository are provided for demonstration and reproducibility purposes. Depending on the study setup, access to raw pose or video data may be restricted due to privacy and consent constraints.
 
+---
 
-Before running any scripts, install required packages (example using `requirements.txt` — create your own based on the project):
+## 📄 License
 
+This repository and its contents are provided under the **[LICENSE NAME]** (e.g., MIT License).  
+See the `LICENSE` file for details.
 
+---
 
-```bash
+## 📬 Contact
 
-pip install -r requirements.txt
+For questions, feedback, or requests related to this project, please contact:
 
+**[Your Name]**  
+**[Your Institution]**  
+**[Your Email Address]**
 
+---
 
-\## 🧠 Workflow
-
-
-
-1\. \*\*Video Alignment\*\*
-
-&#x20;  Use a video editing software to align the videos from both camera angles. We used DaVinci Resolve.
-
-
-
-2\. \*\*Split calibration from remaining video\*\*
-
-&#x20;  Cut the Videos into the calibration part and the remaining measurements part.
-
-
-
-3\. \*\*Annotate the baseline features\*\*
-
-&#x20;  Estimate the features not extractable from pose estimation, such as distance and angle to goal, with a annotion software. We used Kinovea. Additionally, we used this step to gather the timestamp of each shot.
-
-
-
-4\. \*\*Camera Calibration\*\*  
-
-&#x20;  Run `04\_Camera\_Calibration.py` to first calibrate each camera and then stereo calibrate to get the rotation matrix and Translation vector.
-
-
-
-5\. \*\*OpenPose\*\*
-
-&#x20;  Estimate Human Pose Estimations from command line.
-
-
-
-6\. \*\*Triangulation\*\*
-
-&#x20;  Run `06\_Triangulation.py` to reconstruct 3D joint positions from multi-view pose data.
-
-
-
-7\. \*\*Feature Extraction\*\*  
-
-&#x20;  Run `07\_Extract\_Features\_from\_Pose.py` to compute pose-derived biomechanical features (e.g., joint velocities, joint angles, and motion descriptors) for each shot.
-
-
-
-8\. \*\*Model Training \& Evaluation\*\*  
-
-&#x20;  - `08\_Base\_Model.ipynb` trains a standard expected-goals (xG) model based on shot and contextual features.  
-
-&#x20;  - `09\_Bio\_Model.ipynb` trains the biomechanically-enhanced xG model incorporating pose-based features.
-
-&#x20;  - Evaluate and compare the base and biomechanical models on the provided test sets, compute performance metrics, and analyze the impact of biomechanical features on model predictions.
-
-
-
-\---
-
-
-
-\## 📄 License
-
-
-
-This repository and its contents are provided under the \*\*\[LICENSE NAME]\*\* (e.g., MIT License). See the `LICENSE` file for details.
-
-
-
-\---
-
-
-
-\## 📬 Contact
-
-
-
-For questions, feedback, or requests for additional resources, please contact:
-
-
-
-\*\*Fabian Hirn\*\*  
-
-\*\*Machine Learning and 
-
-Data Analytics Lab,
-
-Friedrich-Alexander-Universität Erlangen-Nürnberg\*\*  
-
-\*\*fabian.g.hirn@fau.de\*\*
-
-
-
-\---
-
-
-
-\## 📜 Citation
-
-
+## 📜 Citation
 
 If you use this code or parts of it in your research, please cite the associated paper:
 
-
-
 ```bibtex
-
 @article{posexg2026,
-
-&#x20; title   = {Pose-xG: Creating a skill-adjusted xG-model by incorporating biomechanical features based on the player's shooting motion},
-
-&#x20; author  = {Fabian Hirn, Alexander Weiss, Rebecca Lennartz, Bjoern M. Eskofier, Anne D. Koelewijn},
-
-&#x20; journal = {npj Artificial Intelligence},
-
-&#x20; year    = {2026}
-
+  title   = {Your Paper Title},
+  author  = {Author list},
+  journal = {npj Artificial Intelligence},
+  year    = {2026}
 }
-
-
-
