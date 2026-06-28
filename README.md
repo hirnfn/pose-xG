@@ -47,7 +47,8 @@ pose-xG/
 Before running any scripts, install required packages (example using `requirements.txt` — create your own based on the project):
 
 ```bash
-pip install -r requirements.txt```
+pip install -r requirements.txt
+```
 
 ---
 
