@@ -42,18 +42,12 @@ pose-xG/
 
 ## 🚀 Getting Started
 
-### Requirements
+### Dependencies
 
-The code is written in **Python 3**. Typical dependencies include:
+Before running any scripts, install required packages (example using `requirements.txt` — create your own based on the project):
 
-- `numpy`
-- `pandas`
-- `scikit-learn`
-- `matplotlib`
-- pose-estimation frameworks (e.g., MediaPipe or OpenPose, depending on the preprocessing pipeline)
-
-It is recommended to create a virtual environment and install dependencies accordingly.
-
+```bash
+pip install -r requirements.txt
 ---
 
 ## 🧠 Workflow
